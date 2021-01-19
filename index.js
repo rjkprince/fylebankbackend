@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
+let port = process.env.PORT || 3000;
 app.get("/api/branches", async (req, res) => {
   const { q, limit, offset } = req.query;
   let result;
@@ -53,6 +54,6 @@ app.get("/api/branches/autocomplete", async (req, res) => {
   });
 });
 
-app.listen(process.env.SERVER_PORT, () => {
-  console.log(process.env.SERVER_PORT);
+app.listen(port, () => {
+  console.log(port);
 });
