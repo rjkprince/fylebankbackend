@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 5000;
 app.get("/api/branches", async (req, res) => {
   const { q, limit, offset } = req.query;
   let result;
@@ -27,7 +27,13 @@ app.get("/api/branches", async (req, res) => {
     banks: result.rows,
   });
 });
-
+app.get("/api/cities", async (req, res) => {
+  const result = await pool.query("select distinct city from branches");
+  res.send({
+    total: result.rowCount,
+    cities: result.rows,
+  });
+});
 app.get("/api/branches/autocomplete", async (req, res) => {
   const { q, limit, offset } = req.query;
 
